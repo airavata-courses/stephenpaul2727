@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/','HomeController@index');
+Route::get('/',['middleware'=>'cors','HomeController@index']);
 
-Route::get('/time','HomeController@getTime');
+Route::get('/time',['middleware'=>'cors','HomeController@getTime']);

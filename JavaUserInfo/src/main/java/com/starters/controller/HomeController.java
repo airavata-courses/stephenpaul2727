@@ -7,6 +7,7 @@ import com.starters.model.User;
 import com.starters.service.AddUserService;
 
 
+@CrossOrigin()
 @RestController
 public class HomeController {
 
