@@ -1,3 +1,0 @@
-[2017-08-29 02:26:31] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Trait 'App\Http\Controllers\AuthenticatesAndRegistersUsers' not found' in /Users/stephenpaul/PhpstormProjects/TimeTeller/app/Http/Controllers/HomeController.php:10
-Stack trace:
-#0 {main}  
