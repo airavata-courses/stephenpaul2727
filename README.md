@@ -16,15 +16,16 @@ JAVA (Spring Boot)
 2. Open the Java App JavaUserInfo in eclipse with STS Configured.
 3. Right Click on project and run as spring boot app.
 4. The above process will start the server on port 8080.
-5. Open laravel project in an editor(PHPStorm)
-6. run the following command in the root directory of the project.
+5. The database configured for the java project is hosted remotely. 
+6. Open laravel project in an editor(PHPStorm)
+7. run the following command in the root directory of the project.
 > php artisan serve
-7. The above process will start server on port 8000
-8. Now go to the home directory of the downloaded project from github.
-9. run the following command for the client.
+8. The above process will start server on port 8000
+9. Now go to the home directory of the downloaded project from github.
+10. run the following command for the client.
 > php -S localhost:2000
-10. This will start inbuilt php server on port 2000
-11. localhost:2000/client.php will open the client interface which has buttons to communicate with the servers.
+11. This will start inbuilt php server on port 2000
+12. localhost:2000/client.php will open the client interface which has buttons to communicate with the servers.
 
 
 
