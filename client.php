@@ -14,7 +14,7 @@
     $(document).ready(function(){
         $("#laravel").click(function(){
             $.ajax({
-                url: "http://localhost:8000/getTime",
+                url: "http://localhost:8000/time",
                 success: function(result){
                     $("#div1").html(result);
                 }
