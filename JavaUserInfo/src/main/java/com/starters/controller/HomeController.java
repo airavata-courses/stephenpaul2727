@@ -1,5 +1,8 @@
 package com.starters.controller;
 
+import java.util.List;
+import com.starters.service.UrlConnector;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +29,17 @@ public class HomeController {
 		return "Hello there!";
 	}
 	
-	@GetMapping("/getuserdata")
-	public String allUsers()
+	@GetMapping("/timefromlatavel")
+	public String getTimeLaravel(){
+		UrlConnector urlconn = new UrlConnector();
+		String result = urlconn.getUrlContents("http://localhost:8000/time");
+		return result;
+	}
+	
+	@RequestMapping(value="/getuserdata",method=RequestMethod.GET,produces="application/json")
+	public List<User> allUsers()
 	{
-		return adduserservice.findAll().toString();
+		return adduserservice.findAll();
 	}
 	
 	@GetMapping("/saveuserdata")
@@ -39,4 +49,6 @@ public class HomeController {
 		adduserservice.save(user);
 		return "User SAVED!";
 	}
+	
+	
 }
