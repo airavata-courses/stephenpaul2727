@@ -1,6 +1,9 @@
-# stephenpaul2727
+# SCIENCE GATEWAY ARCHITECTURE
 
-# Technologies Used:
+## Assignment 1
+
+
+## Technologies Used:
 
 PHP (Laravel)
 JAVA (Spring Boot)
