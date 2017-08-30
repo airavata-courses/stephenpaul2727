@@ -31,4 +31,15 @@ class HomeController extends Controller
         $mytime = Carbon::now();
         return $mytime->toDateTimeString();
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getUserInfo()
+    {
+        $result = json_decode(file_get_contents("http://localhost:8080/getuserdata"));
+        return response()->json($result);
+    }
 }
