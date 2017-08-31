@@ -72,6 +72,14 @@ PYTHON (Flask)
 6. Clicking "Get User data from Java Server Database through python flask." will get users JSON data from java server to python to client.
 7. Clicking "Get Cars as Json from Python Server" will get JSON from Python server, stringifies and embeds in the html.
 
+### Database
+
+1. If you want to recreate my remote postgresql database in your local postgres db system. You can do so by using the latest.dump file in the Assignment 1 Repository.
+2. The command that you have to run is :
+> pg_restore --verbose --clean --no-acl --no-owner -h localhost -U myuser -d mydb latest.dump
+3. Substitute the localhost, myyser, mydb with your local database credentials to reproduce my database.
+
+
 ## Contact
 
 > Please **let me know** if you have any troube regrading starting of the microservices or the client.
