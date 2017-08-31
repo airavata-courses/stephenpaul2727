@@ -2,6 +2,10 @@
 
 ## Assignment 1
 
+## Image Description of the Project:
+
+![alt text](https://github.com/airavata-courses/stephenpaul2727/blob/master/Assignment1/images/scg1.png "Project Image Layout")
+
 
 ## Technologies Used:
 
@@ -10,7 +14,7 @@ JAVA (Spring Boot)
 PYTHON (Flask)
 
 ## Requirements:
-1. Install phpstorm(free for students) with laravel, composer. [Follow this tutorial till 6:46](https://www.youtube.com/watch?v=QSZK1W0fbGQ).
+1. Install latest version of composer.
 2. Install Eclipse and Spring Tool Suite from eclipse market place.
 3. Install Python -version > 2.7 & flask(use pip).
 
@@ -20,9 +24,10 @@ PYTHON (Flask)
 ### Running Laravel Server.
 
 1. Download source code from github.
-2. open the project folder TimeTeller from phpstorm.
+2. open the project folder TimeTeller from Terminal/CommandPrompt.
 3. Run the following commands.
-> composer update
+> composer install
+> php artisan key:generate
 > php artisan serve
 4. Now, you can visit http://localhost:8000 to view the started server.
 
