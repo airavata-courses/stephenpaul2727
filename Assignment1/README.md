@@ -27,7 +27,9 @@ PYTHON (Flask)
 2. open the project folder TimeTeller from Terminal/CommandPrompt.
 3. Run the following commands.
 > composer install
+
 > php artisan key:generate
+
 > php artisan serve
 4. Now, you can visit http://localhost:8000 to view the started server.
 
