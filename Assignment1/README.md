@@ -15,7 +15,7 @@ PYTHON (Flask)
 
 ## Requirements:
 1. Install latest version of composer.
-2. Install Eclipse and Spring Tool Suite from eclipse market place.
+2. Install latest version of maven.
 3. Install Python -version > 2.7 & flask(use pip).
 
 
@@ -36,11 +36,13 @@ PYTHON (Flask)
 ### Running Spring Boot Server.
 
 1. Download the source code from github.
-2. Start Eclipse with STS(Spring Tool Suite) installed.
-3. Open the project folder from eclipse.
-4. After the project is loaded, Right-Click on the project-> Run as-> Spring Boot App
-5. Look for the in-built terminal to see whether the server is started.
-6. Now, you can visit http://localhost:8080 to view the started server.
+2. Migrate to the projects root directory.
+3. Run the following commands.
+> mvn clean install
+
+> mvn spring-boot:run
+4. Look for the in-built terminal to see whether the server is started.
+5. Now, you can visit http://localhost:8080 to view the started server.
 
 ### Running Flask Server.
 
