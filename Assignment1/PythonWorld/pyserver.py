@@ -1,6 +1,8 @@
 #!flask/bin/python
+import requests
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
+
 
 app = Flask(__name__)
 CORS(app)
@@ -27,6 +29,11 @@ def index():
 @app.route('/cars')
 def get_tasks():
     return jsonify({'cars': cars})
+
+@app.route('/getjavadata')
+def get_data_from_spring_boot():
+    r = requests.get('http://localhost:8080/getuserdata')
+    return r.content    
 
 if __name__ == '__main__':
     app.run(debug=True)

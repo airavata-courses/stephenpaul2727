@@ -52,7 +52,7 @@
             }});
         });
         $("#python").click(function(){
-            $.ajax({url: "http://localhost:5000", success: function(result){
+            $.ajax({url: "http://localhost:5000/getjavadata", success: function(result){
                 $("#div3").html(result);
             }});
         });
@@ -77,7 +77,7 @@
     <span class="right-space"></span>
     <button class="btn btn-success" id="javahello">Say Hello to the MicroService.</button><br>
     <div class="soft-space"></div>
-    <button class="btn btn-primary" id="python">Get Greetings from Python MicroService</button>
+    <button class="btn btn-primary" id="python">Get User data from Java Server Database through python flask.</button>
     <span class="right-space"></span>
     <button class="btn btn-success" id="pythoncars">Get Cars as Json from Python Server</button><br>
     <div class="space"></div>
