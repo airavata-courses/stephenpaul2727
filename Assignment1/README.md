@@ -69,7 +69,7 @@ PYTHON (Flask)
 3. Clicking "Get Current Time From Laravel MicroService" will get current time from laravel microservice.
 4. Clicking "Get Greetings from Java SpringBoot MicroService" will get greeting from Spring Boot Java Microservice.
 5. Clicking "Say Hello to the MicroService." will return hello greeting.
-6. Clicking "Get Greetings from Python MicroService" will get the greeting from python server.
+6. Clicking "Get User data from Java Server Database through python flask." will get users JSON data from java server to python to client.
 7. Clicking "Get Cars as Json from Python Server" will get JSON from Python server, stringifies and embeds in the html.
 
 ## Contact
