@@ -2,6 +2,10 @@
 
 ## Assignment 1
 
+## Image Description of the Project:
+
+![alt text](https://github.com/airavata-courses/stephenpaul2727/blob/master/Assignment1/images/scg1.png "Project Image Layout")
+
 
 ## Technologies Used:
 
@@ -10,8 +14,8 @@ JAVA (Spring Boot)
 PYTHON (Flask)
 
 ## Requirements:
-1. Install phpstorm(free for students) with laravel, composer. [Follow this tutorial till 6:46](https://www.youtube.com/watch?v=QSZK1W0fbGQ).
-2. Install Eclipse and Spring Tool Suite from eclipse market place.
+1. Install latest version of composer.
+2. Install latest version of maven.
 3. Install Python -version > 2.7 & flask(use pip).
 
 
@@ -20,20 +24,25 @@ PYTHON (Flask)
 ### Running Laravel Server.
 
 1. Download source code from github.
-2. open the project folder TimeTeller from phpstorm.
+2. open the project folder TimeTeller from Terminal/CommandPrompt.
 3. Run the following commands.
-> composer update
+> composer install
+
+> php artisan key:generate
+
 > php artisan serve
 4. Now, you can visit http://localhost:8000 to view the started server.
 
 ### Running Spring Boot Server.
 
 1. Download the source code from github.
-2. Start Eclipse with STS(Spring Tool Suite) installed.
-3. Open the project folder from eclipse.
-4. After the project is loaded, Right-Click on the project-> Run as-> Spring Boot App
-5. Look for the in-built terminal to see whether the server is started.
-6. Now, you can visit http://localhost:8080 to view the started server.
+2. Migrate to the projects root directory.
+3. Run the following commands.
+> mvn clean install
+
+> mvn spring-boot:run
+4. Look for the in-built terminal to see whether the server is started.
+5. Now, you can visit http://localhost:8080 to view the started server.
 
 ### Running Flask Server.
 
@@ -60,7 +69,7 @@ PYTHON (Flask)
 3. Clicking "Get Current Time From Laravel MicroService" will get current time from laravel microservice.
 4. Clicking "Get Greetings from Java SpringBoot MicroService" will get greeting from Spring Boot Java Microservice.
 5. Clicking "Say Hello to the MicroService." will return hello greeting.
-6. Clicking "Get Greetings from Python MicroService" will get the greeting from python server.
+6. Clicking "Get User data from Java Server Database through python flask." will get users JSON data from java server to python to client.
 7. Clicking "Get Cars as Json from Python Server" will get JSON from Python server, stringifies and embeds in the html.
 
 ## Contact
