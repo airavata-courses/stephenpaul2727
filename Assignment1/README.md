@@ -76,9 +76,14 @@ PYTHON (Flask)
 
 1. If you want to recreate my remote postgresql database in your local postgres db system. You can do so by using the latest.dump file in the Assignment 1 Repository.
 2. The command that you have to run is :
+3. After you have installed the version 9.6.4 of PostgreSQl, Login to psql terminal.
+4. Create a role.( eg. myuser ), Create a db ( eg. mydb ). Grant all privileges of mydb to myuser. 
+5. Exit psql terminal, Migrate to directory where latest.dump is present and type the following command.
 > pg_restore --verbose --clean --no-acl --no-owner -h localhost -U myuser -d mydb latest.dump
-3. Substitute the localhost, myyser, mydb with your local database credentials to reproduce my database.
-
+6. Some Errors may be present due to differences between heroku db and local db but ignore them.
+7. Now open psql terminal again and connet to mydb. You can see the data in the table 'users'.
+-------------------------------------------------------------------------------------------------------
+** I'm happy to share credentials of remote db if you have a third party postgres client for your machine like POSTICO( only available for mac) to escape all the above mentioned process.
 
 ## Contact
 
