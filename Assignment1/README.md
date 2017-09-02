@@ -21,7 +21,7 @@ PYTHON (Flask)
 
 ## USAGE
 
-### Running Laravel Server.
+### Running Laravel Server. { -----LINUX USERS----- }
 
 1. Download source code from github.
 2. open the project folder TimeTeller from Terminal/CommandPrompt.
@@ -32,6 +32,22 @@ PYTHON (Flask)
 
 > php artisan serve
 4. Now, you can visit http://localhost:8000 to view the started server.
+
+### Running Laravel Server. { ------ WINDOWS USERS ------- }
+
+1. Install xampp on windows from this ![alt text](https://www.apachefriends.org/download.html "link")
+2. Install Composer from this ![alt text](https://getcomposer.org/download/ "Project Image Layout")
+3. Download source code for timeteller from github and paste in htdocs folder inside C:/xampp directory.
+4. Start the Apache Server from xampp control panel. 
+5. Go to the command prompt and migrate to the timeteller root directory.
+6. Run the following commands.
+> composer install
+
+> php artisan key:generate
+
+>php artisan serve
+7. Now you can visit http://localhost:8000 to view the started server.
+
 
 ### Running Spring Boot Server.
 
