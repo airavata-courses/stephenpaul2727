@@ -35,8 +35,8 @@ PYTHON (Flask)
 
 ### Running Laravel Server. { ------ WINDOWS USERS ------- }
 
-1. Install xampp on windows from this ![alt text](https://www.apachefriends.org/download.html "link")
-2. Install Composer from this ![alt text](https://getcomposer.org/download/ "Project Image Layout")
+1. Install xampp on windows from this [get xampp link](https://www.apachefriends.org/download.html)
+2. Install Composer from this [get xampp link](https://getcomposer.org/download "getcomposer.org)
 3. Download source code for timeteller from github and paste in htdocs folder inside C:/xampp directory.
 4. Start the Apache Server from xampp control panel. 
 5. Go to the command prompt and migrate to the timeteller root directory.
