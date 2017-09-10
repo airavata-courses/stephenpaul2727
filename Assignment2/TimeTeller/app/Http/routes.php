@@ -19,3 +19,6 @@ Route::get('/time',array('middleware'=>'cors','uses'=>'HomeController@getTime'))
 Route::get('/getuserinfo',array('middleware'=>'cors','uses'=>'HomeController@getUserInfo'));
 
 Route::get('/postUserThroughRabbit',array('middleware'=>'cors','uses'=>'HomeController@saveUserRabbit'));
+
+Route::get('/PhpListener',array('middleware'=>'cors','uses'=>'HomeController@listenUserRabbit'));
+

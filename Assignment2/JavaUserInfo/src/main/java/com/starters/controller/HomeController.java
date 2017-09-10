@@ -6,6 +6,7 @@ import java.util.concurrent.CountDownLatch;
 import com.starters.service.UrlConnector;
 
 import org.apache.log4j.Logger;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,13 @@ public class HomeController {
 	final static Logger logger = Logger.getLogger(HomeController.class);
 	
 	private CountDownLatch latch = new CountDownLatch(1);
+	
+	private RabbitTemplate rabbitTemplate;
+	
+	@Autowired
+	public HomeController(RabbitTemplate rabbitTemplate){
+		this.rabbitTemplate = rabbitTemplate;
+	}
 	
 	public CountDownLatch getLatch() {
         return latch;
@@ -63,4 +71,12 @@ public class HomeController {
 		String retMessage = adduserservice.save(user);
 		return retMessage;
 	}	
+	
+	@GetMapping("/fanoutjavauserdata")
+	public String fanout(){
+		List<User> myUserList = adduserservice.findAll();
+		rabbitTemplate.convertAndSend("java-exchange","python-queue", myUserList.toString());
+		rabbitTemplate.convertAndSend("java-exchange","php-queue", myUserList.toString());
+		return "SENT INFO TO RESPECTIVE RECEIVERS";
+	}
 }

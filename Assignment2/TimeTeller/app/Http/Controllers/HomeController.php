@@ -46,7 +46,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Send Messages.
      *
      * @return \Illuminate\Http\Response
      */
@@ -67,4 +67,37 @@ class HomeController extends Controller
         return "SENT USER INFORMATION THROUGH RABBITMQ to JAVA SERVER!";
 
     }
+
+    /**
+     * Listening Messages.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function listenUserRabbit()
+    {
+        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+        $channel = $connection->channel();
+
+        $channel->exchange_declare('java-exchange', 'topic', false, true, false);
+
+        $channel->queue_declare("php-queue", false, true, false, false);
+
+        $channel->queue_bind("php-queue", 'java-exchange', 'php-queue');
+
+        $callback = function($msg){
+            echo ' [x] ',$msg->delivery_info['routing_key'], ':', $msg->body, "\n";
+        };
+
+        $channel->basic_consume("php-queue", '', false, true, false, false, $callback);
+
+        $channel->wait();
+
+        $channel->close();
+        $connection->close();
+
+        return "";
+    }
+
+
+
 }

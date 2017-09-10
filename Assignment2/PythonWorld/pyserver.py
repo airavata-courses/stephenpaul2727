@@ -4,9 +4,9 @@ import pika
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 
-
 app = Flask(__name__)
 CORS(app)
+
 
 cars = [
     {
@@ -46,6 +46,33 @@ def post_user_through_rabbit():
                       body='python-python@iu.edu-8128558585')
     connection.close()
     return "SENT INFO THROUGH RABBITMQ"
+
+
+@app.route('/PythonListener')
+def python_listener():
+    mycredentials = pika.PlainCredentials('guest', 'guest')
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',port=5672,credentials=mycredentials))
+    channel = connection.channel()
+    channel.exchange_declare(exchange='java-exchange',type='topic',durable='true')
+    channel.queue_declare(queue='python-queue',durable=True, exclusive=False, auto_delete=False)
+
+    result = channel.queue_declare(exclusive=True)
+    queue_name = result.method.queue
+
+    channel.queue_bind(exchange='java-exchange',
+                           queue=queue_name,
+                           routing_key='python-queue')
+
+    print(' Listening for any Messages.......')
+    def callback(ch, method, properties, body):
+        print(" [x] %r:%r" % (method.routing_key, body))
+        ch.close()
+    channel.basic_consume(callback,
+                      queue=queue_name,
+                      no_ack=True)
+    channel.start_consuming()
+    return "MESSAGE RECEIVED! PLEASE CHECK YOUR CONSOLE!"
+
 
 
 
