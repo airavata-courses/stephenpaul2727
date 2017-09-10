@@ -1,0 +1,81 @@
+# SCIENCE GATEWAY ARCHITECTURE
+
+## Assignment 1
+
+## Image Description of the Project:
+
+![alt text](https://github.com/airavata-courses/stephenpaul2727/blob/master/Assignment1/images/scg1.png "Project Image Layout")
+
+
+## Technologies Used:
+
+PHP (Laravel)
+JAVA (Spring Boot)
+PYTHON (Flask)
+
+## Requirements:
+1. Install latest version of composer.
+2. Install latest version of maven.
+3. Install Python -version > 2.7 & flask(use pip).
+
+
+## USAGE
+
+### Running Laravel Server.
+
+1. Download source code from github.
+2. open the project folder TimeTeller from Terminal/CommandPrompt.
+3. Run the following commands.
+> composer install
+
+> php artisan key:generate
+
+> php artisan serve
+4. Now, you can visit http://localhost:8000 to view the started server.
+
+### Running Spring Boot Server.
+
+1. Download the source code from github.
+2. Migrate to the projects root directory.
+3. Run the following commands.
+> mvn clean install
+
+> mvn spring-boot:run
+4. Look for the in-built terminal to see whether the server is started.
+5. Now, you can visit http://localhost:8080 to view the started server.
+
+### Running Flask Server.
+
+1. Download the source code from github.
+2. Migrate to the project folder from terminal/command-prompt.
+3. Run the following command.
+> python pyserver.py
+4. Now you can visit the link from flask on which port the server is started. Normally, http://localhost:5000
+
+### Starting the php client.php
+
+1. Download the source code from github.
+2. Migrate to the folder where client.php is present.
+3. Run the following Command.
+> php -S localhost:2000
+4. Now you can go to http://localhost:2000 which will start the in-built PHP server. 
+5. Now visit the client interface through http://localhost:2000/client.php
+
+
+### Testing
+
+1. After Every Server and client mentioned above are started. you can do the following:
+2. Clicking "Get user data from Java Server Database through Laravel" button will get the users in the postgres db which is linked to java spring boot server from laravel. (Communications between laravel PHP and Spring Boot).
+3. Clicking "Get Current Time From Laravel MicroService" will get current time from laravel microservice.
+4. Clicking "Get Greetings from Java SpringBoot MicroService" will get greeting from Spring Boot Java Microservice.
+5. Clicking "Say Hello to the MicroService." will return hello greeting.
+6. Clicking "Get User data from Java Server Database through python flask." will get users JSON data from java server to python to client.
+7. Clicking "Get Cars as Json from Python Server" will get JSON from Python server, stringifies and embeds in the html.
+
+## Contact
+
+> Please **let me know** if you have any troube regrading starting of the microservices or the client.
+
+
+
+

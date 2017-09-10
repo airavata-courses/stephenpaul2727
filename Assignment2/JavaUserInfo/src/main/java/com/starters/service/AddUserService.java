@@ -31,15 +31,9 @@ public class AddUserService{
 		return users;
 	}
 	
-	public String save(User user)
+	public void save(User user)
 	{
-		for(User dbusers:adduserinterface.findAll()){
-			if(dbusers.getName().equalsIgnoreCase(user.getName()) || dbusers.getEmail().equalsIgnoreCase(user.getEmail()) || dbusers.getPhone().equalsIgnoreCase(user.getPhone())){
-				return "USER EXISTS";
-			}
-		}
 		adduserinterface.save(user);
-		return "SAVED";
 	}
 	
 	public void delete(int id)

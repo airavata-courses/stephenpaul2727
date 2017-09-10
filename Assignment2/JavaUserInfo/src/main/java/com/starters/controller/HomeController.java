@@ -1,15 +1,11 @@
 package com.starters.controller;
 
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
-
 import com.starters.service.UrlConnector;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.starters.Receiver;
 import com.starters.model.User;
 import com.starters.service.AddUserService;
 
@@ -17,14 +13,6 @@ import com.starters.service.AddUserService;
 @CrossOrigin()
 @RestController
 public class HomeController {
-	
-	final static Logger logger = Logger.getLogger(HomeController.class);
-	
-	private CountDownLatch latch = new CountDownLatch(1);
-	
-	public CountDownLatch getLatch() {
-        return latch;
-    }
 
 	@Autowired
 	private AddUserService adduserservice;
@@ -58,10 +46,9 @@ public class HomeController {
 	public String saveUser(@RequestParam String name,@RequestParam String email,@RequestParam String phone)
 	{
 		User user = new User(name,email,phone);
-		logger.info("THIS IS EMAIL"+email);
-		logger.info("THIS IS PHONE"+phone);
-		logger.info("THIS IS NAME:"+name);
-		String retMessage = adduserservice.save(user);
-		return retMessage;
-	}	
+		adduserservice.save(user);
+		return "User SAVED!";
+	}
+	
+	
 }
