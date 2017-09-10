@@ -59,8 +59,8 @@ class HomeController extends Controller
         $connection = new AMQPStreamConnection('localhost','5672','guest','guest');
         $channel = $connection->channel();
         $channel->exchange_declare("java-exchange","topic",false,true,false);
-        $routingKey = "java-queue";
-        $msg = new AMQPMessage(serialize($finalString),array('content_type' => 'text/plain','delivery_mode' => 2));
+        $routingKey = "java";
+        $msg = new AMQPMessage($finalString,array('delivery_mode' => 2));
         $channel->basic_publish($msg,"java-exchange",$routingKey);
         $channel->close();
         $connection->close();

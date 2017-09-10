@@ -1,0 +1,6 @@
+Flask==0.12.2
+requests==0.11.1
+Flask-Cors==3.0.3
+Pika==0.10.0
+
+

@@ -18,31 +18,21 @@ public class Receiver {
     @Autowired
 	private AddUserService adduserservice;
     
-    public void receiveMessage(String message) {
-        System.out.println("Received <" + message + ">"); 
-        String[] messageActual = message.split("\"");
-        String contentString = messageActual[1].toString();
-        String[] parts = contentString.split(SEPARATOR);
-    	User user = new User(parts[0],parts[1],parts[2]);
-        String retMessage = adduserservice.save(user);
-        
-        latch.countDown();
+    public void receiveMessage(byte[] message) {
+    	try {
+    		String contentString = new String(message);
+        	String[] parts = contentString.split(SEPARATOR);
+        	User user = new User(parts[0],parts[1],parts[2]);
+            String retMessage = adduserservice.save(user);
+            logger.info(retMessage);
+            latch.countDown();
+    	}
+    	catch(Exception ex){
+    		ex.printStackTrace();
+    	}
     }
 
     public CountDownLatch getLatch() {
         return latch;
     }
-
-//	@Override
-//	public void onMessage(Message arg0) {
-//		try {
-//			Jackson2JsonMessageConverter jmc = new Jackson2JsonMessageConverter();
-//			String myResult = jmc.fromMessage(arg0).toString();
-//			System.out.println("I REceived: "+myResult);
-//			
-//		}
-//		catch(Exception ex){
-//			ex.printStackTrace();
-//		}		
-//	}
 }
