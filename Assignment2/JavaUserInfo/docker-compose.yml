@@ -1,0 +1,10 @@
+rabbitmq:
+  image: rabbitmq:management
+  ports:
+    - "5672:5672" #JMS Port
+
+spring-boot-admin:
+  image: docker-java-image
+  ports:
+    #  local : container expose
+    - "8080:8080"

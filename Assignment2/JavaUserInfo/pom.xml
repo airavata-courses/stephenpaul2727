@@ -6,7 +6,7 @@
 	<groupId>com.starters</groupId>
 	<artifactId>JavaUserInfo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>JavaUserInfo</name>
 	<description>USER ADDER</description>
@@ -87,10 +87,33 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-jar-plugin</artifactId>
+	            <configuration>
+		        <archive>
+		          <manifest>
+		            <addClasspath>true</addClasspath>
+		            <classpathPrefix>lib/</classpathPrefix>
+		            <mainClass>com.starters.JavaCalculatorApplication</mainClass>
+		          </manifest>
+		        </archive>
+		      	</configuration>
+	            <executions>
+		            <execution>
+		            <id>make-a-jar</id>
+		            <phase>compile</phase>
+		            <goals>
+		            	<goal>jar</goal>
+		            </goals>
+		            </execution>
+	            </executions>
+            </plugin> -->
 		</plugins>
+		<finalName>dockerjar</finalName>
 	</build>
 
 
