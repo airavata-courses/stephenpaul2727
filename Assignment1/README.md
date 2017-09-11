@@ -17,6 +17,7 @@ PYTHON (Flask)
 1. Install latest version of composer.
 2. Install latest version of maven.
 3. Install Python -version > 2.7 & flask(use pip).
+4. Make sure the ports 8000,8080,2000,2500,5000 on your localhost are not occupied.(If they are, Kill those processes!)
 
 
 ## USAGE
@@ -68,6 +69,16 @@ PYTHON (Flask)
 > python pyserver.py
 4. Now you can visit the link from flask on which port the server is started. Normally, http://localhost:5000
 
+### Running APIServer(Flask).
+
+1. Download the source code from github.
+2. Migrate to the project's GatewayApi directory.
+3. Run the following command.
+> pip install -r requirements.txt
+
+> python apiserver.py
+4. Now the API Server is running on port 2500 of Localhost.
+
 ### Starting the php client.php
 
 1. Download the source code from github.
@@ -81,12 +92,12 @@ PYTHON (Flask)
 ### Testing
 
 1. After Every Server and client mentioned above are started. you can do the following:
-2. Clicking "Get user data from Java Server Database through Laravel" button will get the users in the postgres db which is linked to java spring boot server from laravel. (Communications between laravel PHP and Spring Boot).
-3. Clicking "Get Current Time From Laravel MicroService" will get current time from laravel microservice.
-4. Clicking "Get Greetings from Java SpringBoot MicroService" will get greeting from Spring Boot Java Microservice.
-5. Clicking "Say Hello to the MicroService." will return hello greeting.
-6. Clicking "Get User data from Java Server Database through python flask." will get users JSON data from java server to python to client.
-7. Clicking "Get Cars as Json from Python Server" will get JSON from Python server, stringifies and embeds in the html.
+2. Clicking "Get user data from Java Server Database through Laravel" button will get the users in the postgres db which is linked to java spring boot server from laravel. (Communications between laravel PHP and Spring Boot). This will happen by tapping into the port exposed by the api gateway instead of microservice itself. Then the redirection to the correct microservice is handled by apiserver script.
+3. Clicking "Get Current Time From Laravel MicroService" will get current time from laravel microservice.This will happen by tapping into the port exposed by the api gateway instead of microservice itself. Then the redirection to the correct microservice is handled by apiserver script.
+4. Clicking "Get Greetings from Java SpringBoot MicroService" will get greeting from Spring Boot Java Microservice.This will happen by tapping into the port exposed by the api gateway instead of microservice itself. Then the redirection to the correct microservice is handled by apiserver script.
+5. Clicking "Say Hello to the MicroService." will return hello greeting.This will happen by tapping into the port exposed by the api gateway instead of microservice itself. Then the redirection to the correct microservice is handled by apiserver script.
+6. Clicking "Get User data from Java Server Database through python flask." will get users JSON data from java server to python to client.This will happen by tapping into the port exposed by the api gateway instead of microservice itself. Then the redirection to the correct microservice is handled by apiserver script.
+7. Clicking "Get Cars as Json from Python Server" will get JSON from Python server, stringifies and embeds in the html.This will happen by tapping into the port exposed by the api gateway instead of microservice itself. Then the redirection to the correct microservice is handled by apiserver script.
 
 ### Database
 
