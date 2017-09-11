@@ -2,8 +2,9 @@ rabbitmq:
   image: rabbitmq:management
   ports:
     - "5672:5672" #JMS Port
+    - "15672:15672" #Management Port - default user:pass = guest:guest
 
-spring-boot-admin:
+JavaUserInfo:
   image: docker-java-image
   ports:
     #  local : container expose
