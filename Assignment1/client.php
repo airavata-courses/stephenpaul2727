@@ -28,37 +28,37 @@
     $(document).ready(function(){
         $("#laravel").click(function(){
             $.ajax({
-                url: "http://localhost:8000/time",
+                url: "http://localhost:2500/laraveltime",
                 success: function(result){
                     $("#div1").html(result);
                 }
             });
         });
         $("#java").click(function(){
-            $.ajax({url: "http://localhost:8080/", success: function(result){
+            $.ajax({url: "http://localhost:2500/javahome", success: function(result){
                 $("#div2").html(result);
             }});
         });
         $("#laravel-java").click(function(){
-            $.ajax({url: "http://localhost:8000/getuserinfo", dataType:'json', success: function(result){
+            $.ajax({url: "http://localhost:2500/laraveluserinfo", dataType:'json', success: function(result){
                 var res = JSON.stringify(result);
                 $("#div1").html(res);
             }});
         });
 
         $("#javahello").click(function(){
-            $.ajax({url: "http://localhost:8080/hello", success: function(result){
+            $.ajax({url: "http://localhost:2500/javahello", success: function(result){
                 $("#div2").html(result);
             }});
         });
         $("#python").click(function(){
-            $.ajax({url: "http://localhost:5000/getjavadata", success: function(result){
+            $.ajax({url: "http://localhost:2500/flaskuserinfo", success: function(result){
                 $("#div3").html(result);
             }});
         });
 
         $("#pythoncars").click(function(){
-            $.ajax({url: "http://localhost:5000/cars", dataType:'json', success: function(result){
+            $.ajax({url: "http://localhost:2500/flaskcars", dataType:'json', success: function(result){
                 var res = JSON.stringify(result);
                 $("#div3").html(res);
             }});
