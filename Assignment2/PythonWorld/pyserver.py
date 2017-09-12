@@ -38,7 +38,8 @@ def get_data_from_spring_boot():
 
 @app.route('/postUserThroughRabbit')
 def post_user_through_rabbit():
-    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    mycredentials = pika.PlainCredentials('guest', 'guest')
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit-server',port=5672,credentials=mycredentials))
     channel = connection.channel()
     channel.queue_declare(queue='java-queue')
     channel.basic_publish(exchange='java-exchange',
@@ -51,7 +52,7 @@ def post_user_through_rabbit():
 @app.route('/PythonListener')
 def python_listener():
     mycredentials = pika.PlainCredentials('guest', 'guest')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',port=5672,credentials=mycredentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit-server',port=5672,credentials=mycredentials))
     channel = connection.channel()
     channel.exchange_declare(exchange='java-exchange',type='topic',durable='true')
     channel.queue_declare(queue='python-queue',durable=True, exclusive=False, auto_delete=False)

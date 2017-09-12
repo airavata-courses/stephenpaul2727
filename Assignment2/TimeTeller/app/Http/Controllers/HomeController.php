@@ -56,7 +56,7 @@ class HomeController extends Controller
         $user_email = "prudacha@iu.edu";
         $user_phone = "8129551384";
         $finalString = "{$user_name}-{$user_email}-{$user_phone}";
-        $connection = new AMQPStreamConnection('localhost','5672','guest','guest');
+        $connection = new AMQPStreamConnection('rabbit-server','5672','guest','guest');
         $channel = $connection->channel();
         $channel->exchange_declare("java-exchange","topic",false,true,false);
         $routingKey = "java";
@@ -75,7 +75,7 @@ class HomeController extends Controller
      */
     public function listenUserRabbit()
     {
-        $connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+        $connection = new AMQPStreamConnection('rabbit-server', 5672, 'guest', 'guest');
         $channel = $connection->channel();
 
         $channel->exchange_declare('java-exchange', 'topic', false, true, false);
