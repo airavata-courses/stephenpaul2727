@@ -21,6 +21,14 @@ PYTHON (Flask)
 
 ## USAGE
 
+### New Usage process using docker. (Tentative)
+
+1. Install docker on your machine. 
+2. Download the project from the github and migrate to the root directory of Assignment 2.
+3. Run the following command->
+> docker-compose up
+4. If you face any issues while build process and it relates to port allocation, please make sure you have the following ports closed : 8080,8000,5000,15672, 5672.
+
 ### Running Laravel Server. { -----LINUX USERS----- }
 
 1. Download source code from github.
