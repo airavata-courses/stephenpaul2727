@@ -21,27 +21,23 @@ PYTHON (Flask)
 
 ## USAGE
 
-### Running Laravel Server. { -----LINUX USERS----- }
+### New Usage process using docker. (Tentative)
 
-1. Download source code from github.
-2. open the project folder TimeTeller from Terminal/CommandPrompt.
-3. Run the following commands.
-> composer install
+1. Install docker on your machine. 
+2. Download the project from the github and migrate to the root directory of Assignment 2.
+3. Run the following command->
+> docker-compose up
+4. If you face any issues while build process and it relates to port allocation, please make sure you have the following ports closed : 8080,8000,5000,15672, 5672.
 
-> php artisan key:generate
+### Running Laravel Server.
 
-> php artisan serve
-4. Now, you can visit http://localhost:8000 to view the started server.
-
-### Running Laravel Server. { ------ WINDOWS USERS ------- }
-
-1. Install xampp on windows from this [get xampp link](https://www.apachefriends.org/download.html)
+1. Install xampp from this [get xampp link](https://www.apachefriends.org/download.html)
 2. Install Composer from this [get composer link](https://getcomposer.org/download)
 3. Download source code for timeteller from github and paste in htdocs folder inside C:/xampp directory.
 4. Start the Apache Server from xampp control panel. 
 5. Go to the command prompt and migrate to the timeteller root directory.
 6. Run the following commands.
-> composer install
+> php composer.phar install
 
 > php artisan key:generate
 
