@@ -28,37 +28,42 @@
     $(document).ready(function(){
         $("#laravel").click(function(){
             $.ajax({
-                url: "http://localhost:2500/laraveltime",
+                url: "http://0.0.0.0:2500/laraveltime",
                 success: function(result){
                     $("#div1").html(result);
                 }
             });
         });
+        $("test-api").click(function(){
+            $.ajax({url: "http://0.0.0.0:2500/",success: function(result){
+                $("#div4").html(result);
+            }});
+        })
         $("#java").click(function(){
-            $.ajax({url: "http://localhost:2500/javahome", success: function(result){
+            $.ajax({url: "http://0.0.0.0:2500/javahome", success: function(result){
                 $("#div2").html(result);
             }});
         });
         $("#laravel-java").click(function(){
-            $.ajax({url: "http://localhost:2500/laraveluserinfo", dataType:'json', success: function(result){
+            $.ajax({url: "http://0.0.0.0:2500/getjavadataphp", dataType:'json', success: function(result){
                 var res = JSON.stringify(result);
                 $("#div1").html(res);
             }});
         });
 
         $("#javahello").click(function(){
-            $.ajax({url: "http://localhost:2500/javahello", success: function(result){
+            $.ajax({url: "http://0.0.0.0:2500/javahello", success: function(result){
                 $("#div2").html(result);
             }});
         });
         $("#python").click(function(){
-            $.ajax({url: "http://localhost:2500/flaskuserinfo", success: function(result){
+            $.ajax({url: "http://0.0.0.0:2500/getjavadata", success: function(result){
                 $("#div3").html(result);
             }});
         });
 
         $("#pythoncars").click(function(){
-            $.ajax({url: "http://localhost:2500/flaskcars", dataType:'json', success: function(result){
+            $.ajax({url: "http://0.0.0.0:2500/flaskcars", dataType:'json', success: function(result){
                 var res = JSON.stringify(result);
                 $("#div3").html(res);
             }});
@@ -70,6 +75,7 @@
 
 <div class="container-fluid navHead" id="mainNav" style="padding-top: 25px; padding-bottom: 25px;">
     <h2>Welcome to the MicroService Client.</h2>
+    <button class="btn btn-warning" id="test-api">Test API Server Connection</button>
     <button class="btn btn-primary" id="laravel-java">Get user data from Java Server Database through Laravel</button><span class="right-space"></span>
     <button class="btn btn-success" id="laravel">Get Current Time From Laravel MicroService</button><br>
     <div class="soft-space"></div>
@@ -81,6 +87,7 @@
     <span class="right-space"></span>
     <button class="btn btn-success" id="pythoncars">Get Cars as Json from Python Server</button><br>
     <div class="space"></div>
+    <div id="div4"><h2>-----CONNECTION STATUS------</h2></div><br>
     <div id="div1"><h2>Laravel Microservice Updates this block.</h2></div><br>
     <div id="div2"><h2>Java Microservice updates this block.</h2></div><br>
     <div id="div3"><h2>Python Microservice updates this block.</h2></div>

@@ -33,7 +33,7 @@ def get_tasks():
 
 @app.route('/getjavadata')
 def get_data_from_spring_boot():
-    r = requests.get('http://localhost:8080/getuserdata')
+    r = requests.get('http://java-server:8080/getuserdata')
     return r.content  
 
 @app.route('/postUserThroughRabbit')
@@ -66,8 +66,22 @@ def python_listener():
 
     print(' Listening for any Messages.......')
     def callback(ch, method, properties, body):
-        print(" [x] %r:%r" % (method.routing_key, body))
-        ch.close()
+        if body == 'javauserinfo':
+            print("inside callback")
+            ch.close()
+            r = requests.get('http://java-server:8080/getuserdata')
+            mycredentials = pika.PlainCredentials('guest', 'guest')
+            connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit-server',port=5672,credentials=mycredentials))
+            channel = connection.channel()
+            channel.queue_declare(queue='api-queue')
+            channel.basic_publish(exchange='java-exchange',
+                              routing_key='api-queue',
+                              body=r.content)
+            channel.close()
+            connection.close()
+        else:
+            print(" [x] %r:%r" % (method.routing_key, body))
+            ch.close()
     channel.basic_consume(callback,
                       queue=queue_name,
                       no_ack=True)

@@ -1,0 +1,17 @@
+{
+  "name": "apigateway",
+  "version": "1.0.0",
+  "description": "My Gateway API ",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stephen Paul",
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.1",
+    "body-parser": "*",
+    "express": "^4.15.4"
+  }
+}

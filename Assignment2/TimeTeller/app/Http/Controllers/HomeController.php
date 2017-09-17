@@ -41,7 +41,7 @@ class HomeController extends Controller
      */
     public function getUserInfo()
     {
-        $result = json_decode(file_get_contents("http://localhost:8080/getuserdata"));
+        $result = json_decode(file_get_contents("http://java-server:8080/getuserdata"));
         return response()->json($result);
     }
 
@@ -57,6 +57,7 @@ class HomeController extends Controller
         $user_phone = "8129551384";
         $finalString = "{$user_name}-{$user_email}-{$user_phone}";
         $connection = new AMQPStreamConnection('rabbit-server','5672','guest','guest');
+        // $connection = new AMQPStreamConnection('localhost','5672','guest','guest');
         $channel = $connection->channel();
         $channel->exchange_declare("java-exchange","topic",false,true,false);
         $routingKey = "java";
@@ -69,6 +70,28 @@ class HomeController extends Controller
     }
 
     /**
+     * Send Messages.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendTimeRabbit()
+    {
+        echo "I'm currently inside sendtimeRabbit";
+        $mytime = Carbon::now();
+        $connection = new AMQPStreamConnection('rabbit-server','5672','guest','guest');
+        // $connection = new AMQPStreamConnection('localhost','5672','guest','guest');
+        $channel = $connection->channel();
+        $channel->exchange_declare("api-exchange","topic",false,true,false);
+        $routingKey = "api-queue";
+        $msg = new AMQPMessage($mytime->toDateTimeString(),array('delivery_mode' => 2));
+        $channel->basic_publish($msg,"api-exchange",$routingKey);
+        $channel->close();
+        $connection->close();
+        return "SENT TIME BACK THROUGH RABBIT";
+
+    }
+
+    /**
      * Listening Messages.
      *
      * @return \Illuminate\Http\Response
@@ -77,24 +100,41 @@ class HomeController extends Controller
     {
         $connection = new AMQPStreamConnection('rabbit-server', 5672, 'guest', 'guest');
         $channel = $connection->channel();
-
         $channel->exchange_declare('java-exchange', 'topic', false, true, false);
-
         $channel->queue_declare("php-queue", false, true, false, false);
-
         $channel->queue_bind("php-queue", 'java-exchange', 'php-queue');
-
         $callback = function($msg){
-            echo ' [x] ',$msg->delivery_info['routing_key'], ':', $msg->body, "\n";
+            echo 'RoutingKEY:',$msg->delivery_info['routing_key'], ': Requesting: ', $msg->body, "\n";
+            if($msg->body == "time"){
+                $mytime = Carbon::now();
+                $finalTime = $mytime->toDateTimeString();
+                echo $finalTime;
+                $connection = new AMQPStreamConnection('rabbit-server', 5672, 'guest', 'guest');
+                $channel = $connection->channel();
+                $channel->exchange_declare("java-exchange","topic",false,true,false);
+                $routingKey = "api-queue";
+                $msg = new AMQPMessage($finalTime,array('delivery_mode' => 2));
+                $channel->basic_publish($msg,"java-exchange",$routingKey);
+                $channel->close();
+                $connection->close();
+            }
+            else if($msg->body == "userinfo"){
+                $result = file_get_contents("http://java-server:8080/getuserdata");
+                $connection = new AMQPStreamConnection('rabbit-server', 5672, 'guest', 'guest');
+                $channel = $connection->channel();
+                $channel->exchange_declare("java-exchange","topic",false,true,false);
+                $routingKey = "api-queue";
+                $msg = new AMQPMessage($result,array('delivery_mode' => 2));
+                $channel->basic_publish($msg,"java-exchange",$routingKey);
+                $channel->close();
+                $connection->close();
+            }
+            else {}
         };
-
         $channel->basic_consume("php-queue", '', false, true, false, false, $callback);
-
         $channel->wait();
-
         $channel->close();
         $connection->close();
-
         return "";
     }
 

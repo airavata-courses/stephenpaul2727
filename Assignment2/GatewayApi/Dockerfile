@@ -1,16 +1,7 @@
-FROM ubuntu:16.04
-RUN apt-get update -y && \
-    apt-get install -y python-pip python-dev
-
-# We copy just the requirements.txt first to leverage Docker cache
-COPY ./requirements.txt /appapi/requirements.txt
-
-WORKDIR /appapi
-
+FROM python:3
+COPY . /app
+WORKDIR /app
 RUN pip install -r requirements.txt
-
-COPY . /appapi
-
+EXPOSE 2500
 ENTRYPOINT [ "python" ]
-
-CMD [ "pyserver.py" ]
+CMD [ "apiserver.py" ]
