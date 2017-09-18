@@ -34,7 +34,7 @@ def get_tasks():
 
 @app.route('/getjavadata')
 def get_data_from_spring_boot():
-    r = requests.get('http://java-server:8080/getuserdata')
+    r = requests.get('http://java-server:8090/getuserdata')
     return r.content  
 
 @app.route('/postUserThroughRabbit')
@@ -69,7 +69,7 @@ def python_listener():
         print(body)
         bodyMessage = str(body, "utf-8")
         if bodyMessage=='javauserinfo':
-            r = requests.get('http://java-server:8080/getuserdata')
+            r = requests.get('http://java-server:8090/getuserdata')
             print(r.text)  
             ch.queue_declare(queue='api-queue',durable=True)
             ch.basic_publish(exchange='java-exchange',

@@ -9,7 +9,7 @@ services:
   javauserinfo:
     build: ./javauserinfo
     ports:
-      - "8080:8080"
+      - "8090:8090"
     links:
       - "rabbitmq:rabbit-server"
     depends_on:

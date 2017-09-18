@@ -41,7 +41,7 @@ class HomeController extends Controller
      */
     public function getUserInfo()
     {
-        $result = json_decode(file_get_contents("http://java-server:8080/getuserdata"));
+        $result = json_decode(file_get_contents("http://java-server:8090/getuserdata"));
         return response()->json($result);
     }
 
@@ -119,7 +119,7 @@ class HomeController extends Controller
                 $connection->close();
             }
             else if($msg->body == "userinfo"){
-                $result = file_get_contents("http://java-server:8080/getuserdata");
+                $result = file_get_contents("http://java-server:8090/getuserdata");
                 $connection = new AMQPStreamConnection('rabbit-server', 5672, 'guest', 'guest');
                 $channel = $connection->channel();
                 $channel->exchange_declare("java-exchange","topic",false,true,false);
