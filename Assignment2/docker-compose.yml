@@ -19,6 +19,8 @@ services:
     build: ./pythonworld
     ports:
       - "5000:5000"
+    environment:
+      - PYTHONUNBUFFERED=0
     links:
       - "rabbitmq:rabbit-server"
       - "javauserinfo:java-server"
@@ -49,3 +51,12 @@ services:
       - "javauserinfo"
       - "pythonworld"
       - "timeteller"
+
+  client:
+    build: ./client
+    ports:
+      - "80:80"
+    links:
+      - "apigateway:api-server"
+    depends_on:
+      - "apigateway"

@@ -3,5 +3,4 @@ COPY . /app
 WORKDIR /app
 RUN pip install -r requirements.txt
 EXPOSE 5000
-ENTRYPOINT [ "python" ]
-CMD [ "pyserver.py" ]
+CMD [ "python", "-u", "pyserver.py" ]

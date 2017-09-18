@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors');
 // var bodyParser = require('body-parser');
 // var path = require('path');
 var amqp = require('amqplib/callback_api');
@@ -9,6 +10,7 @@ var app = express();
 // 	next();
 // }
 
+app.use(cors())
 // app.use(logger);
 
 //Body Parser Middleware
@@ -44,7 +46,7 @@ app.get('/laraveltime',function(req,res){
 	    ch.publish(exchange, key, Buffer.from(msg));
 	    console.log(" [x] Sent %s:'%s'", key, msg);
 
-	    ch.assertQueue('api-queue', {exclusive: true}, function(err, q) {
+	    ch.assertQueue('api-queue', {exclusive: false}, function(err, q) {
 	      console.log(' [*] Waiting for logs. To exit press CTRL+C');
 	      ch.bindQueue(q.queue, exchange, 'api-queue');
 
@@ -54,7 +56,7 @@ app.get('/laraveltime',function(req,res){
 	      }, {noAck: true});
 	    });
 	    //timeout for 5 seconds.
-	    setTimeout(function() { conn.close(); }, 4000);
+	    setTimeout(function() { ch.close(); conn.close(); }, 4000);
 	  });
 	});
 });
@@ -71,7 +73,7 @@ app.get('/laraveluserinfo',function(req,res){
 	    ch.publish(exchange, key, Buffer.from(msg));
 	    console.log(" [x] Sent %s:'%s'", key, msg);
 
-	    ch.assertQueue('api-queue', {exclusive: true}, function(err, q) {
+	    ch.assertQueue('api-queue', {exclusive: false}, function(err, q) {
 	      console.log(' [*] Waiting for logs. To exit press CTRL+C');
 	      ch.bindQueue(q.queue, exchange, 'api-queue');
 
@@ -81,7 +83,7 @@ app.get('/laraveluserinfo',function(req,res){
 	      }, {noAck: true});
 	    });
 	    //timeout for 5 seconds.
-	    setTimeout(function() { conn.close(); }, 4000);
+	    setTimeout(function() { ch.close(); conn.close(); }, 4000);
 	  });
 	});
 });
@@ -98,7 +100,7 @@ app.get('/javahello',function(req,res){
 	    ch.publish(exchange, key, Buffer.from(msg));
 	    console.log(" [x] Sent %s:'%s'", key, msg);
 
-	    ch.assertQueue('api-queue', {exclusive: true}, function(err, q) {
+	    ch.assertQueue('api-queue', {exclusive: false}, function(err, q) {
 	      console.log(' [*] Waiting for logs. To exit press CTRL+C');
 	      ch.bindQueue(q.queue, exchange, 'api-queue');
 
@@ -108,7 +110,7 @@ app.get('/javahello',function(req,res){
 	      }, {noAck: true});
 	    });
 	    //timeout for 5 seconds.
-	    setTimeout(function() { conn.close(); }, 4000);
+	    setTimeout(function() { ch.close(); conn.close(); }, 4000);
 	  });
 	});
 });
@@ -125,7 +127,7 @@ app.get('/pythonuserinfo',function(req,res){
 	    ch.publish(exchange, key, Buffer.from(msg));
 	    console.log(" [x] Sent %s:'%s'", key, msg);
 
-	    ch.assertQueue('api-queue', {exclusive: true}, function(err, q) {
+	    ch.assertQueue('api-queue', {exclusive: false,durable: true}, function(err, q) {
 	      console.log(' [*] Waiting for logs. To exit press CTRL+C');
 	      ch.bindQueue(q.queue, exchange, 'api-queue');
 
@@ -135,51 +137,38 @@ app.get('/pythonuserinfo',function(req,res){
 	      }, {noAck: true});
 	    });
 	    //timeout for 5 seconds.
-	    setTimeout(function() { conn.close(); }, 4000);
+	    setTimeout(function() { ch.close(); conn.close();}, 4000);
 	  });
 	});
 });
 
-
-
-app.get('/sendInfo',function(req,res){
+//getting the java userinfo from python flask microservice through rabbitmq.
+app.get('/pythoncars',function(req,res){
 	amqp.connect('amqp://rabbit-server', function(err, conn) {
 		conn.createChannel(function(err, ch) {
 		  var exchange = 'java-exchange';
-	    var key = 'api-queue';
-	    var msg = 'Hello World!';
+	    var key = 'python-queue';
+	    var msg = 'cars';
 
 	    ch.assertExchange(exchange, 'topic', {durable: true});
 	    ch.publish(exchange, key, Buffer.from(msg));
 	    console.log(" [x] Sent %s:'%s'", key, msg);
-	    res.send("Please open /listen end point on a new tab. Also ensure that PhpListener is Active as well. The result will appear on /listen");
-		});
 
-		setTimeout(function() { conn.close(); process.exit(0) }, 500);
-	});
-
-});
-
-app.get('/listen',function(req,res){
-
-	amqp.connect('amqp://rabbit-server', function(err, conn) {
-		  conn.createChannel(function(err, ch) {
-	    var ex = 'java-exchange';
-
-	    ch.assertExchange(ex, 'topic', {durable: true});
-
-	    ch.assertQueue('api-queue', {exclusive: true}, function(err, q) {
+	    ch.assertQueue('api-queue', {exclusive: false,durable: true}, function(err, q) {
 	      console.log(' [*] Waiting for logs. To exit press CTRL+C');
-	      ch.bindQueue(q.queue, ex, 'api-queue');
+	      ch.bindQueue(q.queue, exchange, 'api-queue');
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
 	        res.send(msg.content.toString());
 	      }, {noAck: true});
 	    });
+	    //timeout for 5 seconds.
+	    setTimeout(function() { ch.close(); conn.close();}, 4000);
 	  });
 	});
 });
+
 
 app.listen(3000,function(){
 	console.log("listening on port 3000");

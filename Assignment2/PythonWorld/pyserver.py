@@ -1,6 +1,7 @@
 #!flask/bin/python
 import requests
 import pika
+import sys
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 
@@ -45,6 +46,7 @@ def post_user_through_rabbit():
     channel.basic_publish(exchange='java-exchange',
                       routing_key='java',
                       body='python-python@iu.edu-8128558585')
+    channel.close()
     connection.close()
     return "SENT INFO THROUGH RABBITMQ"
 
@@ -55,8 +57,6 @@ def python_listener():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit-server',port=5672,credentials=mycredentials))
     channel = connection.channel()
     channel.exchange_declare(exchange='java-exchange',type='topic',durable='true')
-    channel.queue_declare(queue='python-queue',durable=True, exclusive=False, auto_delete=False)
-
     result = channel.queue_declare(exclusive=True)
     queue_name = result.method.queue
 
@@ -66,22 +66,27 @@ def python_listener():
 
     print(' Listening for any Messages.......')
     def callback(ch, method, properties, body):
-        if body == 'javauserinfo':
-            print("inside callback")
-            ch.close()
+        print(body)
+        bodyMessage = str(body, "utf-8")
+        if bodyMessage=='javauserinfo':
             r = requests.get('http://java-server:8080/getuserdata')
-            mycredentials = pika.PlainCredentials('guest', 'guest')
-            connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit-server',port=5672,credentials=mycredentials))
-            channel = connection.channel()
-            channel.queue_declare(queue='api-queue')
-            channel.basic_publish(exchange='java-exchange',
+            print(r.text)  
+            ch.queue_declare(queue='api-queue',durable=True)
+            ch.basic_publish(exchange='java-exchange',
                               routing_key='api-queue',
-                              body=r.content)
-            channel.close()
-            connection.close()
+                              body=r.text)
+        elif bodyMessage=='cars':
+            carsstring = ''.join(str(elm) for elm in cars)
+            ch.queue_declare(queue='api-queue',durable=True)
+            ch.basic_publish(exchange='java-exchange',
+                              routing_key='api-queue',
+                              body=carsstring)   
         else:
             print(" [x] %r:%r" % (method.routing_key, body))
-            ch.close()
+        
+        ch.close()
+
+
     channel.basic_consume(callback,
                       queue=queue_name,
                       no_ack=True)
