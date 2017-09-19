@@ -1,88 +1,69 @@
 # SCIENCE GATEWAY ARCHITECTURE
 
-## Assignment 1
-
-## Image Description of the Project:
-
-![alt text](https://github.com/airavata-courses/stephenpaul2727/blob/master/Assignment1/images/scg1.png "Project Image Layout")
-
+## Assignment 2
 
 ## Technologies Used:
 
 PHP (Laravel)
 JAVA (Spring Boot)
 PYTHON (Flask)
+JAVASCRIPT (JS)
 
 ## Requirements:
-1. Install latest version of composer.
-2. Install latest version of maven.
-3. Install Python -version > 2.7 & flask(use pip).
+Link for the instance:
+Client: 129.114.104.44---->(Not Working For Now)
+APIGateway: 129.114.104.44:3000
+PythonMicroservice: 129.114.104.44:5000
+SpringBootMicroservice: 129.114.104.44:8090
+LaravelMicroService: 129.114.104.44:8000
+RabbitMQ: 129.114.104.44:15672 -> All messages are implemented using topic exchange. 
+
+## Process Completed:
+1. Used RabbitMQ for communication between API Gateway and microservices and in between microservices.
+2. Used Docker-compose to build all the microservices including gateway and client in docker containers.
+3. Created Jenkins File to run the docker-compose up command and other necessary commands to start all the build running.
+4. Allocated a VM in jetstream for the project. 
+5. Linked Jenkins Slave to the VM Instance.
 
 
-## USAGE
+## USAGE ---- BRANCH: Assignment2
 
-### New Usage process using docker. (Tentative)
+### Fanning out userinfo retrieved from java db to python microservice an laravel microservice:
 
-1. Install docker on your machine. 
-2. Download the project from the github and migrate to the root directory of Assignment 2.
-3. Run the following command->
-> docker-compose up
-4. If you face any issues while build process and it relates to port allocation, please make sure you have the following ports closed : 8080,8000,5000,15672, 5672.
+1. go to this link: 129.114.104.44:8000/PhpListener
+2. go to this link: 129.114.104.44:5000/PythonListener
+3. go to this link: 129.114.104.44:8090/fanoutjavauserdata
+4. visit 1 & 2 links to check for output. Python microservice displays results on console.
 
-### Running Laravel Server.
+### Sending out user to store in java db from laravel microservice.
 
-1. Install xampp from this [get xampp link](https://www.apachefriends.org/download.html)
-2. Install Composer from this [get composer link](https://getcomposer.org/download)
-3. Download source code for timeteller from github and paste in htdocs folder inside C:/xampp directory.
-4. Start the Apache Server from xampp control panel. 
-5. Go to the command prompt and migrate to the timeteller root directory.
-6. Run the following commands.
-> php composer.phar install
+1. go to this link: 129.114.104.44:8000/postUserThroughRabbit. The following user can be now posted:
+"Prudhvi","prudacha@iu.edu","8129551384" -> (hardcoded)
+2. Now check the console to see whether user is saved or not! if it says USER EXISTS, then the user is already there in the database.
+3. if he is not!, then you can visit: 129.114.104.44:8090/getuserdata 
+4. It will list all the users from the database and you can find the person there!
 
-> php artisan key:generate
+### Sending out user to store in java db from python microservice.
 
->php artisan serve
-7. Now you can visit http://localhost:8000 to view the started server.
+1. go to this link: 129.114.104.44:5000/postUserThroughRabbit. The following user can be now posted:
+"python","python@iu.edu","8128558585" -> (hardcoded)
+2. Now check the console to see whether user is saved or not! if it says USER EXISTS, then the user is already there in the database.
+3. if he is not!, then you can visit: 129.114.104.44:8090/getuserdata 
+4. It will list all the users from the database and you can find the person there!
 
+### Getting time from Laravel Microservice to API Gateway through RabbitMQ.
 
-### Running Spring Boot Server.
+1. go to this link: 129.114.104.44:8000/PhpListener
+2. go to this link: 129.114.104.44:3000/laraveltime
+3. Now visit the link in point 1 to get the time from laravel microservice through RabbitMQ.
 
-1. Download the source code from github.
-2. Migrate to the projects root directory.
-3. Run the following commands.
-> mvn clean install
+### Getting cars from Python Microservice to API Gateway through RabbitMQ.
+1. go to this link: 129.114.104.44:5000/PythonListener
+2. go to this link: 129.114.104.44:3000/pythoncars
+3. Now visit the link in point 1 to get the time from laravel microservice through RabbitMQ.
 
-> mvn spring-boot:run
-4. Look for the in-built terminal to see whether the server is started.
-5. Now, you can visit http://localhost:8080 to view the started server.
+ALSO, javauserdata in its database can be retrieved from laravel and python microservices through rabbitmq to apigateway which in turn sends that information to client. 
 
-### Running Flask Server.
-
-1. Download the source code from github.
-2. Migrate to the project folder from terminal/command-prompt.
-3. Run the following command.
-> python pyserver.py
-4. Now you can visit the link from flask on which port the server is started. Normally, http://localhost:5000
-
-### Starting the php client.php
-
-1. Download the source code from github.
-2. Migrate to the folder where client.php is present.
-3. Run the following Command.
-> php -S localhost:2000
-4. Now you can go to http://localhost:2000 which will start the in-built PHP server. 
-5. Now visit the client interface through http://localhost:2000/client.php
-
-
-### Testing
-
-1. After Every Server and client mentioned above are started. you can do the following:
-2. Clicking "Get user data from Java Server Database through Laravel" button will get the users in the postgres db which is linked to java spring boot server from laravel. (Communications between laravel PHP and Spring Boot).
-3. Clicking "Get Current Time From Laravel MicroService" will get current time from laravel microservice.
-4. Clicking "Get Greetings from Java SpringBoot MicroService" will get greeting from Spring Boot Java Microservice.
-5. Clicking "Say Hello to the MicroService." will return hello greeting.
-6. Clicking "Get User data from Java Server Database through python flask." will get users JSON data from java server to python to client.
-7. Clicking "Get Cars as Json from Python Server" will get JSON from Python server, stringifies and embeds in the html.
 
 ### Database
 
