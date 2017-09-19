@@ -13,8 +13,14 @@ pipeline {
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt-get update
 sudo apt-get install -y docker-ce
-sudo apt-get -y install python-pip
-sudo pip install docker-compose
+tmp=$(docker-compose --version 2>&1 >>dev/null)
+if [ $tmp -eq 0];
+then
+    sudo curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+else
+    echo "Already There! Skipping"
+fi
 sudo apt-get -y install maven
 cd Assignment2
 cd javauserinfo
