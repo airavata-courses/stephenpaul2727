@@ -36,7 +36,7 @@ app.get('/',function(req,res){
 
 //getting the time from laravel microservice through RabbitMq.
 app.get('/laraveltime',function(req,res){
-	amqp.connect('amqp://rabbit-server', function(err, conn) {
+	amqp.connect('amqp://129.114.104.44', function(err, conn) {
 		conn.createChannel(function(err, ch) {
 		  var exchange = 'java-exchange';
 	    var key = 'php-queue';
@@ -63,7 +63,7 @@ app.get('/laraveltime',function(req,res){
 
 //getting the javauserinfo from java microservice and laravel microservice through RabbitMq
 app.get('/laraveluserinfo',function(req,res){
-	amqp.connect('amqp://rabbit-server', function(err, conn) {
+	amqp.connect('amqp://129.114.104.44', function(err, conn) {
 		conn.createChannel(function(err, ch) {
 		  var exchange = 'java-exchange';
 	    var key = 'php-queue';
@@ -90,7 +90,7 @@ app.get('/laraveluserinfo',function(req,res){
 
 //getting the hello message from java microservice.
 app.get('/javahello',function(req,res){
-	amqp.connect('amqp://rabbit-server', function(err, conn) {
+	amqp.connect('amqp://129.114.104.44', function(err, conn) {
 		conn.createChannel(function(err, ch) {
 		  var exchange = 'java-exchange';
 	    var key = 'java';
@@ -117,7 +117,7 @@ app.get('/javahello',function(req,res){
 
 //getting the java userinfo from python flask microservice through rabbitmq.
 app.get('/pythonuserinfo',function(req,res){
-	amqp.connect('amqp://rabbit-server', function(err, conn) {
+	amqp.connect('amqp://129.114.104.44', function(err, conn) {
 		conn.createChannel(function(err, ch) {
 		  var exchange = 'java-exchange';
 	    var key = 'python-queue';
@@ -144,7 +144,7 @@ app.get('/pythonuserinfo',function(req,res){
 
 //getting the java userinfo from python flask microservice through rabbitmq.
 app.get('/pythoncars',function(req,res){
-	amqp.connect('amqp://rabbit-server', function(err, conn) {
+	amqp.connect('amqp://129.114.104.44', function(err, conn) {
 		conn.createChannel(function(err, ch) {
 		  var exchange = 'java-exchange';
 	    var key = 'python-queue';

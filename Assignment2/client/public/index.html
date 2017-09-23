@@ -28,44 +28,44 @@
     $(document).ready(function(){
         
         $("#test-api").click(function(){
-            $.ajax({url: "http://api-server:3000/",success: function(result){
+            $.ajax({url: "http://129.114.104.44:3000",success: function(result){
                 $("#div4").html(result);
             }});
         });
 
         $("#laravel").click(function(){
             $.ajax({
-                url: "http://api-server:3000/laraveltime",
+                url: "http://129.114.104.44:3000/laraveltime",
                 success: function(result){
                     $("#div1").html(result);
                 }
             });
         });
         // $("#java").click(function(){
-        //     $.ajax({url: "http://api-server:2500/javahome", success: function(result){
+        //     $.ajax({url: "http://129.114.104.44:2500/javahome", success: function(result){
         //         $("#div2").html(result);
         //     }});
         // });
         $("#laravel-java").click(function(){
-            $.ajax({url: "http://api-server:3000/laraveluserinfo", dataType:'json', success: function(result){
+            $.ajax({url: "http://129.114.104.44:3000/laraveluserinfo", dataType:'json', success: function(result){
                 var res = JSON.stringify(result);
                 $("#div1").html(res);
             }});
         });
 
         // $("#javahello").click(function(){
-        //     $.ajax({url: "http://api-server:2500/javahello", success: function(result){
+        //     $.ajax({url: "http://129.114.104.44:2500/javahello", success: function(result){
         //         $("#div2").html(result);
         //     }});
         // });
         $("#python").click(function(){
-            $.ajax({url: "http://api-server:3000/pythonuserinfo", success: function(result){
+            $.ajax({url: "http://129.114.104.44:3000/pythonuserinfo", success: function(result){
                 $("#div3").html(result);
             }});
         });
 
         $("#pythoncars").click(function(){
-            $.ajax({url: "http://api-server:3000/pythoncars", dataType:'json', success: function(result){
+            $.ajax({url: "http://129.114.104.44:3000/pythoncars", dataType:'json', success: function(result){
                 var res = JSON.stringify(result);
                 $("#div3").html(res);
             }});

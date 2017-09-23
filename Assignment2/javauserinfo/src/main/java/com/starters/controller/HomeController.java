@@ -51,7 +51,7 @@ public class HomeController {
 	@GetMapping("/timefromlatavel")
 	public String getTimeLaravel(){
 		UrlConnector urlconn = new UrlConnector();
-		String result = urlconn.getUrlContents("http://localhost:8000/time");
+		String result = urlconn.getUrlContents("http://129.114.104.44:8000/time");
 		return result;
 	}
 	

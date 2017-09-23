@@ -34,13 +34,13 @@ def get_tasks():
 
 @app.route('/getjavadata')
 def get_data_from_spring_boot():
-    r = requests.get('http://java-server:8090/getuserdata')
+    r = requests.get('http://129.114.104.44:8090/getuserdata')
     return r.content  
 
 @app.route('/postUserThroughRabbit')
 def post_user_through_rabbit():
     mycredentials = pika.PlainCredentials('guest', 'guest')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit-server',port=5672,credentials=mycredentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='129.114.104.44',port=5672,credentials=mycredentials))
     channel = connection.channel()
     channel.queue_declare(queue='java-queue')
     channel.basic_publish(exchange='java-exchange',
@@ -54,7 +54,7 @@ def post_user_through_rabbit():
 @app.route('/PythonListener')
 def python_listener():
     mycredentials = pika.PlainCredentials('guest', 'guest')
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit-server',port=5672,credentials=mycredentials))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='129.114.104.44',port=5672,credentials=mycredentials))
     channel = connection.channel()
     channel.exchange_declare(exchange='java-exchange',type='topic',durable='true')
     result = channel.queue_declare(exclusive=True)
@@ -69,7 +69,7 @@ def python_listener():
         print(body)
         bodyMessage = str(body, "utf-8")
         if bodyMessage=='javauserinfo':
-            r = requests.get('http://java-server:8090/getuserdata')
+            r = requests.get('http://129.114.104.44:8090/getuserdata')
             print(r.text)  
             ch.queue_declare(queue='api-queue',durable=True)
             ch.basic_publish(exchange='java-exchange',
@@ -97,4 +97,4 @@ def python_listener():
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True,host='129.114.104.44')
