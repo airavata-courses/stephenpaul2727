@@ -23,7 +23,6 @@ else
 fi
 sudo apt-get -y install maven
 cd Assignment2
-sudo docker-compose run rabbitmq
 cd javauserinfo
 mvn clean install
 mvn package
