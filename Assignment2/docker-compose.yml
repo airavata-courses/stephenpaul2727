@@ -24,7 +24,7 @@ services:
     links:
       - "javauserinfo:java-server"
     depends_on:
-      - "rabbitmq"
+      - "javauserinfo"
 
   apigateway:
     build: ./apigateway
