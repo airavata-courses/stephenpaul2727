@@ -29,6 +29,7 @@ cd javauserinfo
 mvn clean install
 mvn package
 cd ..
+sudo docker-compose build client
 sudo docker-compose up'''
       }
     }
