@@ -22,7 +22,7 @@ else
     echo "Already There! Skipping"
 fi
 
-docker run -d --hostname my-rabbit --name some-rabbit rabbitmq:3
+sudo docker run -d --hostname my-rabbit --name some-rabbit rabbitmq:3
 sudo apt-get -y install maven
 cd Assignment2
 cd javauserinfo
