@@ -21,17 +21,13 @@ then
 else
     echo "Already There! Skipping"
 fi
+
 sudo apt-get -y install maven
 cd Assignment2
 cd javauserinfo
 mvn clean install
 mvn package
 cd ..
-sudo docker-compose build javauserinfo
-sudo docker-compose build timeteller
-sudo docker-compose build pythonworld
-sudo docker-compose build client
-sudo docker-compose build apigateway
 sudo docker-compose up'''
       }
     }
