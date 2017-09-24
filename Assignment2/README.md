@@ -2,6 +2,10 @@
 
 ## Assignment 2
 
+## Image Description of the Project:
+
+![alt text](https://github.com/airavata-courses/stephenpaul2727/blob/master/Assignment2/assignment2sga.png "Project Image Layout")
+
 ## Technologies Used:
 
 PHP (Laravel)
