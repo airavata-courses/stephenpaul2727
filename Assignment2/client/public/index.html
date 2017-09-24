@@ -65,7 +65,7 @@
         });
 
         $("#pythoncars").click(function(){
-            $.ajax({url: "http://129.114.104.44:3000/pythoncars", dataType:'json', success: function(result){
+            $.ajax({url: "http://129.114.104.44:3000/pythoncars", success: function(result){
                 var res = JSON.stringify(result);
                 $("#div3").html(res);
             }});
