@@ -15,7 +15,7 @@ JAVASCRIPT (JS)
 
 ## Requirements:
 Link for the instance:
-Client: 129.114.104.44---->(Not Working For Now)
+Client: 129.114.104.44
 APIGateway: 129.114.104.44:3000
 PythonMicroservice: 129.114.104.44:5000
 SpringBootMicroservice: 129.114.104.44:8090
@@ -32,42 +32,59 @@ RabbitMQ: 129.114.104.44:15672 -> All messages are implemented using topic excha
 
 ## USAGE ---- BRANCH: Assignment2
 
-### Fanning out userinfo retrieved from java db to python microservice an laravel microservice:
+## Testing REMOTELY:
+
+### Fanning out userinfo retrieved from java db to python microservice an laravel microservice: (Communication between microservices)
 
 1. go to this link: 129.114.104.44:8000/PhpListener
 2. go to this link: 129.114.104.44:5000/PythonListener
 3. go to this link: 129.114.104.44:8090/fanoutjavauserdata
 4. visit 1 & 2 links to check for output. Python microservice displays results on console.
 
-### Sending out user to store in java db from laravel microservice.
+### Testing API Server Connection:
 
-1. go to this link: 129.114.104.44:8000/postUserThroughRabbit. The following user can be now posted:
-"Prudhvi","prudacha@iu.edu","8129551384" -> (hardcoded)
-2. Now check the console to see whether user is saved or not! if it says USER EXISTS, then the user is already there in the database.
-3. if he is not!, then you can visit: 129.114.104.44:8090/getuserdata 
-4. It will list all the users from the database and you can find the person there!
+1. Open the client at  http://129.114.104.44/
+2. Click the button "Test API Server Connection" to verify whether the NODE API Gateway is Successfully connected!
 
-### Sending out user to store in java db from python microservice.
+### Getting User Data from Remote DB -> JavaUserInfo -> RabbitMQ -> TimeTeller -> RabbitMQ -> API Gateway -> Client
 
-1. go to this link: 129.114.104.44:5000/postUserThroughRabbit. The following user can be now posted:
-"python","python@iu.edu","8128558585" -> (hardcoded)
-2. Now check the console to see whether user is saved or not! if it says USER EXISTS, then the user is already there in the database.
-3. if he is not!, then you can visit: 129.114.104.44:8090/getuserdata 
-4. It will list all the users from the database and you can find the person there!
+1. Open the listener for Laravel microservice at http://129.114.104.44:8000/PhpListener 
+2. Now Click the button "Get user data from Java Server Database through Laravel" to get the user information.
+3. Please wait some time to get results as the db is remote and free, Speeds are not that great!
 
-### Getting time from Laravel Microservice to API Gateway through RabbitMQ.
+### Getting User Data from Remote DB -> JavaUserInfo -> RabbitMQ -> PythonWorld-> RabbitMQ -> API Gateway -> Client
 
-1. go to this link: 129.114.104.44:8000/PhpListener
-2. go to this link: 129.114.104.44:3000/laraveltime
-3. Now visit the link in point 1 to get the time from laravel microservice through RabbitMQ.
+1. Open the listener for Laravel microservice at http://129.114.104.44:5000/PythonListener 
+2. Now Click the button "Get user data from Java Server Database through python flask." to get the user information.
+3. Please wait some time to get results as the db is remote and free, Speeds are not that great!
 
-### Getting cars from Python Microservice to API Gateway through RabbitMQ.
-1. go to this link: 129.114.104.44:5000/PythonListener
-2. go to this link: 129.114.104.44:3000/pythoncars
-3. Now visit the link in point 1 to get the time from laravel microservice through RabbitMQ.
+### Getting Cars Information from PythonWorld-> RabbitMQ -> API Gateway -> Client
 
-ALSO, javauserdata in its database can be retrieved from laravel and python microservices through rabbitmq to apigateway which in turn sends that information to client. 
+1. Open the listener for Laravel microservice at http://129.114.104.44:5000/PythonListener 
+2. Now Click the button "Get Cars as Json from Python Server." to get the cars list.
 
+### Getting Current Time from TimeTeller -> RabbitMQ -> API Gateway -> Client
+
+1. Open the listener for Laravel microservice at http://129.114.104.44:8000/PhpListener 
+2. Now Click the button "Get Current Time From Laravel MicroService" to get the time.
+
+## Testing LOCALLY:
+
+1. Ensure Docker is started and Docker Compose is accessible.
+2. Download the Project From GitHub Branch Assignment2.
+3. Migrate to project root folder through your Machine CLI.
+4. Run the Following Command:
+
+> docker-compose up
+
+5. Wait for all the services to start.
+6. Now you can visit the services at :
+> http://0.0.0.0:8000
+> http://0.0.0.0:5000
+> http://0.0.0.0:3000
+> http://0.0.0.0:8090
+
+7. The Services may not run as ip's are hardcoded and queue's in remote RabbitMQ are exclusive to the remote microservices.
 
 ### Database
 
