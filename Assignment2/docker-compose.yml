@@ -1,19 +1,10 @@
 version: '3'
 services: 
-  rabbitmq:
-    image: rabbitmq:management
-    ports:
-      - "5672:5672"
-      - "15672:15672"
 
   javauserinfo:
     build: ./javauserinfo
     ports:
       - "8090:8090"
-    links:
-      - "rabbitmq:rabbit-server"
-    depends_on:
-      - "rabbitmq"
 
   pythonworld:
     build: ./pythonworld
@@ -22,10 +13,8 @@ services:
     environment:
       - PYTHONUNBUFFERED=0
     links:
-      - "rabbitmq:rabbit-server"
       - "javauserinfo:java-server"
     depends_on:
-      - "rabbitmq"
       - "javauserinfo"
 
   timeteller:
@@ -33,21 +22,16 @@ services:
     ports:
       - "8000:8000"
     links:
-      - "rabbitmq:rabbit-server"
       - "javauserinfo:java-server"
     depends_on:
       - "rabbitmq"
-      - "javauserinfo"
 
   apigateway:
     build: ./apigateway
     ports:
       - "3000:3000"
-    links:
-      - "rabbitmq:rabbit-server"
     container_name: "myapigateway"
     depends_on:
-      - "rabbitmq"
       - "javauserinfo"
       - "pythonworld"
       - "timeteller"
