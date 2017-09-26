@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/', array('middleware'=>'cors','uses'=>'HomeController@index'));
+Route::get('/', array('middleware'=>'cors','uses'=>'HomeController@listenUserRabbit'));
 
 Route::get('/time',array('middleware'=>'cors','uses'=>'HomeController@getTime'));
 

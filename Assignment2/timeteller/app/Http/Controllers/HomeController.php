@@ -115,8 +115,7 @@ class HomeController extends Controller
                 $routingKey = "api-queue";
                 $msg = new AMQPMessage($finalTime,array('delivery_mode' => 2));
                 $channel->basic_publish($msg,"java-exchange",$routingKey);
-                $channel->close();
-                $connection->close();
+
             }
             else if($msg->body == "userinfo"){
                 $result = file_get_contents("http://129.114.104.44:8090/getuserdata");
@@ -126,15 +125,12 @@ class HomeController extends Controller
                 $routingKey = "api-queue";
                 $msg = new AMQPMessage($result,array('delivery_mode' => 2));
                 $channel->basic_publish($msg,"java-exchange",$routingKey);
-                $channel->close();
-                $connection->close();
+
             }
             else {}
         };
         $channel->basic_consume("php-queue", '', false, true, false, false, $callback);
         $channel->wait();
-        $channel->close();
-        $connection->close();
         return "";
     }
 

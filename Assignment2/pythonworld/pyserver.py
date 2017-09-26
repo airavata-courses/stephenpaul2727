@@ -24,9 +24,6 @@ cars = [
     }
 ]
 
-@app.route('/')
-def index():
-    return "Welcome to the Python Microservice"
 
 @app.route('/cars')
 def get_tasks():
@@ -51,7 +48,7 @@ def post_user_through_rabbit():
     return "SENT INFO THROUGH RABBITMQ"
 
 
-@app.route('/PythonListener')
+@app.route('/')
 def python_listener():
     mycredentials = pika.PlainCredentials('guest', 'guest')
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='129.114.104.44',port=5672,credentials=mycredentials))
@@ -84,8 +81,6 @@ def python_listener():
         else:
             print(" [x] %r:%r" % (method.routing_key, body))
         
-        ch.close()
-
 
     channel.basic_consume(callback,
                       queue=queue_name,
