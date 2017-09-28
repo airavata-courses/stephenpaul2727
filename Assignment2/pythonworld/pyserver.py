@@ -38,11 +38,6 @@ channel.queue_bind(exchange='java-exchange',
                        queue=queue_name,
                        routing_key='python-queue')
 
-channel.basic_consume(callback,
-                      queue=queue_name,
-                      no_ack=True)
-channel.start_consuming()
-
 def callback(ch, method, properties, body):
         print(body)
         bodyMessage = str(body, "utf-8")
@@ -61,6 +56,11 @@ def callback(ch, method, properties, body):
                               body=carsstring)   
         else:
             print(" [x] %r:%r" % (method.routing_key, body))
+
+channel.basic_consume(callback,
+                      queue=queue_name,
+                      no_ack=True)
+channel.start_consuming()
 
 
 
