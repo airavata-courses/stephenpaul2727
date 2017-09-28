@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 echo "Successfully Connected to the Server!"."\n";
 echo "Listening for any Messages........";
