@@ -58,7 +58,6 @@ app.get('/laraveluserinfo',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-					res.writeHead(200,{'Content-Type': 'text/plain'});      
 	        res.write(msg.content.toString());
 	      }, {noAck: true});
 	    });
@@ -84,7 +83,6 @@ app.get('/javahello',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-					res.writeHead(200,{'Content-Type': 'text/plain'});
 	        res.write(msg.content.toString());
 	      }, {noAck: true});
 	    });
@@ -110,7 +108,6 @@ app.get('/pythonuserinfo',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-					res.writeHead(200,{'Content-Type': 'text/plain'});
 	        res.write(msg.content.toString());
 	      }, {noAck: true});
 	    });
@@ -136,7 +133,6 @@ app.get('/pythoncars',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-					res.writeHead(200,{'Content-Type': 'text/plain'});
 	        res.write(msg.content.toString());
 	      }, {noAck: true});
 	    });
