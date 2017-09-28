@@ -103,9 +103,11 @@ class HomeController extends Controller
         $channel->queue_declare("php-queue", false, true, false, false);
         $channel->queue_bind("php-queue", 'java-exchange', 'php-queue');
         $callback = function($msg){
+            echo 'RoutingKEY:',$msg->delivery_info['routing_key'], ': Requesting: ', $msg->body, "\n";
             if($msg->body == "time"){
                 $mytime = Carbon::now();
                 $finalTime = $mytime->toDateTimeString();
+                echo $finalTime;
                 $connection = new AMQPStreamConnection('129.114.104.44', 5672, 'guest', 'guest');
                 $channel = $connection->channel();
                 $channel->exchange_declare("java-exchange","topic",false,true,false);
@@ -127,7 +129,10 @@ class HomeController extends Controller
             else {}
         };
         $channel->basic_consume("php-queue", '', false, true, false, false, $callback);
-        $channel->wait();
+        while(count($channel->callbacks)) {
+            $channel->wait();
+        }
+        return "";
     }
 
 
