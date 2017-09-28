@@ -1,32 +1,12 @@
 var express = require('express');
+
 var cors = require('cors');
-// var bodyParser = require('body-parser');
-// var path = require('path');
+
 var amqp = require('amqplib/callback_api');
 
 var app = express();
-// var logger = function(req,res,next){
-// 	console.log('logging....');
-// 	next();
-// }
 
 app.use(cors())
-// app.use(logger);
-
-//Body Parser Middleware
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended:false}));
-
-// var person = {
-// 	'name': 'stephen',
-// 	'email': 'stephenpaul2727@gmail.com',
-// 	'phone': '8129551395'
-// }
-
-// var arr = [{'name':'stephen'},{'name':'sarah'},{'name':'whatever'}];
-
-//set Static Path
-// app.use(express.static(path.join(__dirname,'public')));
 
 
 
@@ -52,9 +32,8 @@ app.get('/laraveltime',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-		res.writeHead(200,{'Content-Type': 'text/plain'});
+					res.writeHead(200,{'Content-Type': 'text/plain'});
 	        res.write(msg.content.toString());
-		res.end();
 	      }, {noAck: true});
 	    });
 	  });
@@ -79,9 +58,8 @@ app.get('/laraveluserinfo',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-		res.writeHead(200,{'Content-Type': 'text/plain'});      
+					res.writeHead(200,{'Content-Type': 'text/plain'});      
 	        res.write(msg.content.toString());
-		res.end();
 	      }, {noAck: true});
 	    });
 	  });
@@ -106,9 +84,8 @@ app.get('/javahello',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-		res.writeHead(200,{'Content-Type': 'text/plain'});
+					res.writeHead(200,{'Content-Type': 'text/plain'});
 	        res.write(msg.content.toString());
-		res.end();
 	      }, {noAck: true});
 	    });
 	  });
@@ -133,9 +110,8 @@ app.get('/pythonuserinfo',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-		res.writeHead(200,{'Content-Type': 'text/plain'});
+					res.writeHead(200,{'Content-Type': 'text/plain'});
 	        res.write(msg.content.toString());
-		res.end();      
 	      }, {noAck: true});
 	    });
 	  });
@@ -160,9 +136,8 @@ app.get('/pythoncars',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-		res.writeHead(200,{'Content-Type': 'text/plain'});
+					res.writeHead(200,{'Content-Type': 'text/plain'});
 	        res.write(msg.content.toString());
-		res.end();
 	      }, {noAck: true});
 	    });
 	  });

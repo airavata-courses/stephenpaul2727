@@ -24,6 +24,48 @@ cars = [
     }
 ]
 
+##*****************************************************************
+
+
+mycredentials = pika.PlainCredentials('guest', 'guest')
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='129.114.104.44',port=5672,credentials=mycredentials))
+channel = connection.channel()
+channel.exchange_declare(exchange='java-exchange',type='topic',durable='true')
+result = channel.queue_declare(exclusive=True)
+queue_name = result.method.queue
+
+channel.queue_bind(exchange='java-exchange',
+                       queue=queue_name,
+                       routing_key='python-queue')
+
+channel.basic_consume(callback,
+                      queue=queue_name,
+                      no_ack=True)
+channel.start_consuming()
+
+def callback(ch, method, properties, body):
+        print(body)
+        bodyMessage = str(body, "utf-8")
+        if bodyMessage=='javauserinfo':
+            r = requests.get('http://129.114.104.44:8090/getuserdata')
+            print(r.text)  
+            ch.queue_declare(queue='api-queue',durable=True)
+            ch.basic_publish(exchange='java-exchange',
+                              routing_key='api-queue',
+                              body=r.text)
+        elif bodyMessage=='cars':
+            carsstring = ''.join(str(elm) for elm in cars)
+            ch.queue_declare(queue='api-queue',durable=True)
+            ch.basic_publish(exchange='java-exchange',
+                              routing_key='api-queue',
+                              body=carsstring)   
+        else:
+            print(" [x] %r:%r" % (method.routing_key, body))
+
+
+
+##*****************************************************************
+
 
 @app.route('/cars')
 def get_tasks():
