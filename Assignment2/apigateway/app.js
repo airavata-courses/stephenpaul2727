@@ -52,7 +52,7 @@ app.get('/laraveltime',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-	        res.send(msg.content.toString());
+	        res.write(msg.content.toString());
 	      }, {noAck: true});
 	    });
 	    //timeout for 5 seconds.
@@ -79,7 +79,7 @@ app.get('/laraveluserinfo',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-	        res.send(msg.content.toString());
+	        res.write(msg.content.toString());
 	      }, {noAck: true});
 	    });
 	    //timeout for 5 seconds.
@@ -106,7 +106,7 @@ app.get('/javahello',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-	        res.send(msg.content.toString());
+	        res.write(msg.content.toString());
 	      }, {noAck: true});
 	    });
 	    //timeout for 5 seconds.
@@ -133,7 +133,7 @@ app.get('/pythonuserinfo',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-	        res.send(msg.content.toString());
+	        res.write(msg.content.toString());
 	      }, {noAck: true});
 	    });
 	    //timeout for 5 seconds.
@@ -160,7 +160,7 @@ app.get('/pythoncars',function(req,res){
 
 	      ch.consume(q.queue, function(msg) {
 	        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-	        res.send(msg.content.toString());
+	        res.write(msg.content.toString());
 	      }, {noAck: true});
 	    });
 	    //timeout for 5 seconds.
