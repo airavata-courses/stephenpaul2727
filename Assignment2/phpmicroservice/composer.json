@@ -3,6 +3,7 @@
     "description": "My Own Php Microservice",
     "require": {
         "php": ">=5.5.9",
-        "php-amqplib/php-amqplib": "2.6.*"
+        "php-amqplib/php-amqplib": "2.6.*",
+        "nesbot/carbon": "~1.18"
     }
 }
