@@ -1,9 +1,10 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
+
+use Carbon\Carbon;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use Carbon\Carbon;
 
 echo "Successfully Connected to the Server!"."\n";
 echo "Listening for any Messages........";
@@ -16,7 +17,7 @@ $channel->queue_bind("php-queue", 'java-exchange', 'php-queue');
 $callback = function($msg){
     echo 'RoutingKEY:',$msg->delivery_info['routing_key'], ': Requesting: ', $msg->body, "\n";
     if($msg->body == "time"){
-        $mytime = Carbon::now();
+        $mytime = Carbon::now('America/Indiana/Indianapolis');
         $finalTime = $mytime->toDateTimeString();
         echo $finalTime;
         $connection = new AMQPStreamConnection('129.114.104.44', 5672, 'guest', 'guest');
